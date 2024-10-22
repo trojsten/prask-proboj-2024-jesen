@@ -13,7 +13,7 @@ func (g *Game) DoTurn(player *Player) {
 
 type state struct {
 	Player         Player        `json:"player"`
-	VisibleItems   []Iztem       `json:"visible_items"`
+	VisibleItems   []Item        `json:"visible_items"`
 	VisiblePlayers []statePlayer `json:"visible_players"`
 }
 
