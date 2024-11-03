@@ -1,10 +1,14 @@
 import json
+import math
 import sys
 from abc import abstractstaticmethod
 
 
 class XY:
-    def __init__(self, x: float, y: float):
+    """
+    Trieda, ktorá reprezentuje bod/vektor v 2D.
+    """
+    def __init__(self, x: float = 0, y: float = 0):
         self.x = x
         self.y = y
 
@@ -12,11 +16,20 @@ class XY:
     def from_json(cls, data: dict):
         return cls(data.get('x'), data.get('y'))
 
+    def dist(self, other) -> float:
+        dx = self.x - other.x
+        dy = self.y - other.y
+        return math.sqrt(dx*dx+dy*dy)
+
     def __str__(self):
         return f"XY({self.x}, {self.y})"
 
 
 class Wall:
+    """
+    Trieda, ktorá reprezentuje stenu na mape. Je to úsečka
+    medzi bodmi *A* a *B*.
+    """
     def __init__(self, data: dict):
         self.a = XY.from_json(data.get('a'))
         self.b = XY.from_json(data.get('b'))
@@ -26,6 +39,13 @@ class Wall:
 
 
 class Map:
+    """
+    Trieda, ktorá reprezentuje mapu. Mapa je kruh.
+    Tiež sa na nej môžu nachádazať steny.
+
+    * radius - polomer mapy
+    * walls - zoznam stien
+    """
 
     def __init__(self, data: dict):
         self.radius = data.get('radius')
@@ -41,9 +61,19 @@ class Map:
 
 
 class Player:
+    """
+    Player je trieda, ktorá reprezentuje vášho hráča v hre.
+
+    * id - ID hráča
+    * xy - pozícia hráča
+    * health - zostávajúce body života
+    * weapon - vybavená zbraň
+    * loaded_ammo - zostávajúce náboje
+    * reload_cooldown - zostávajúci počet kôl, po ktoré nemožno strielať (prebíja sa zbraň)
+    """
     def __init__(self, data):
-        self.xy = XY(data.get('x'), data.get('y'))
         self.id = data.get('id')
+        self.xy = XY(data.get('x'), data.get('y'))
         self.health = data.get('health')
         self.weapon = data.get('weapon')
         self.laoded_ammo = data.get('laoded_ammo')
@@ -64,6 +94,14 @@ class Player:
 
 
 class EnemyPlayer:
+    """
+    EnemyPlayer je trieda, ktorá reprezentuje nepriateľského hráča v hre.
+    O ňom máme už len obmedzené informácie.
+
+    * id - ID hráča
+    * xy - pozícia hráča
+    * weapon - vybavená zbraň
+    """
     def __init__(self, data):
         self.xy = XY(data.get('x'), data.get('y'))
         self.id = data.get('id')
@@ -84,6 +122,13 @@ class EnemyPlayer:
 
 
 class Item:
+    """
+    Item je trieda, ktorá reprezentuje veci, ktoré môžeme zbierať zo zeme a použiť.
+
+    * XY - pozícia itemu
+    * type - typ item (lekárnička, zbraň)
+    * weapon - typ zbrane
+    """
     def __init__(self, data):
         self.xy = XY(data.get('x'), data.get('y'))
         self.type = data.get('type')
@@ -103,6 +148,11 @@ class Turn:
 
 
 class MoveTurn(Turn):
+    """
+    MoveTurn je trieda, ktorá preprezentuje ťah pohybu.
+
+    * XY - pozícia, ktorej smerom sa hráč pohne
+    """
     def __init__(self, goal: XY):
         self.goal = goal
 
@@ -112,6 +162,11 @@ class MoveTurn(Turn):
 
 
 class ShootTurn(Turn):
+    """
+    ShootTurn je trieda, ktorá preprezentuje ťah strieľania.
+
+    * target - neprateľský hráč, na ktorého bude váš hráč strielať
+    """
     def __init__(self, target: EnemyPlayer):
         self.target = target
 
@@ -121,20 +176,34 @@ class ShootTurn(Turn):
 
 
 class PickUpTurn(Turn):
-
+    """
+    PickUpTurn je trieda, ktorá preprezentuje ťah zodvyhnutia itemu zo zeme.
+    Zo zeme zodvyhne najbližší item.
+    """
     def print(self):
         print(f"PICKUP")
         print(".")
 
 
 class DropTurn(Turn):
-
+    """
+    DropTurn je trieda, ktorá preprezentuje ťah vyhodenia zbrane.
+    Vyhodí aktuálne vybavenú zbraň hráča.
+    """
     def print(self):
         print(f"DROP")
         print(".")
 
 
 class Game:
+    """
+    Game je trieda, ktorá preprezenuje celú hru.
+
+    * map - objekt Mapy
+    * player - váš hráč
+    * enemy_player - zoznam neprateľských hráčov, ktorých vidíte
+    * items - zoznam všetkých vecí, ktoré vidíte
+    """
 
     def __init__(self):
         self.map = Map.read_map()
