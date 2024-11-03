@@ -25,6 +25,7 @@ func main() {
 		Players: []*Player{},
 	}
 	game.SpawnPlayers(players)
+	game.SendMapToObserver()
 	game.GreetPlayers()
 
 	for game.ShouldContinue() {
@@ -32,6 +33,8 @@ func main() {
 			game.DoTurn(player)
 		}
 		game.Tick()
+		game.SendStateToObserver()
+		game.Turn++
 	}
 
 	game.Runner.Log("that's all folks!")

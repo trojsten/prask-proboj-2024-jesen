@@ -192,3 +192,25 @@ func (g *Game) processTurn(p *Player) error {
 
 	return nil
 }
+
+func (g *Game) DoTurn(player *Player) {
+	if player.Health <= 0 {
+		return
+	}
+
+	data := g.stateForPlayer(player)
+	response := g.Runner.ToPlayer(player.Name, fmt.Sprintf("turn %v", g.Turn), data)
+	if response != client.Ok {
+		g.Runner.Log(fmt.Sprintf("player %v did not accept game state", player.Name))
+		player.Health = 0
+		return
+	}
+
+	err := g.processTurn(player)
+	if err != nil {
+		if errors.Is(err, ErrorRunner) {
+			g.Runner.Log(fmt.Sprintf("player %v did not produce a turn data", player.Name))
+			player.Health = 0
+		}
+	}
+}
