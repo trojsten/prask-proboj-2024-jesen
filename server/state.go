@@ -9,6 +9,10 @@ import (
 )
 
 func (g *Game) DoTurn(player *Player) {
+	if player.Health <= 0 {
+		return
+	}
+
 	data := g.stateForPlayer(player)
 	response := g.Runner.ToPlayer(player.Name, fmt.Sprintf("turn %v", g.Turn), data)
 	if response != client.Ok {
@@ -27,6 +31,7 @@ func (g *Game) DoTurn(player *Player) {
 }
 
 type state struct {
+	Radius         float64       `json:"radius"`
 	Player         Player        `json:"player"`
 	VisibleItems   []Item        `json:"visible_items"`
 	VisiblePlayers []statePlayer `json:"visible_players"`
@@ -56,7 +61,7 @@ func (g *Game) closestWallInTheWay(p *Player, pos Position) (*Wall, Position) {
 }
 
 func (g *Game) stateForPlayer(p *Player) string {
-	playerState := state{Player: *p, VisibleItems: []Item{}, VisiblePlayers: []statePlayer{}}
+	playerState := state{Player: *p, VisibleItems: []Item{}, VisiblePlayers: []statePlayer{}, Radius: g.Map.Radius}
 
 	for _, item := range g.Map.Items {
 		if wall, _ := g.closestWallInTheWay(p, item.Position); wall == nil {

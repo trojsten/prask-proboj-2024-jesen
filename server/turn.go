@@ -46,6 +46,9 @@ func (g *Game) whereToMove(p *Player, target Position) Position {
 }
 
 func (g *Game) shoot(shooter *Player, target *Player) error {
+	if shooter.LoadedAmmo <= 0 {
+		return fmt.Errorf("no ammo loaded")
+	}
 	if shooter.ReloadCooldown > 0 {
 		return fmt.Errorf("still reloading: %v", shooter.ReloadCooldown)
 	}

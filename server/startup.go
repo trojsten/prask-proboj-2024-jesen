@@ -4,11 +4,35 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/trojsten/ksp-proboj/client"
+	"math"
+	"math/rand"
 )
 
 type startupMap struct {
 	Radius float64 `json:"radius"`
 	Walls  []*Wall `json:"walls"`
+}
+
+func (g *Game) SpawnPlayers(players []string) {
+	for i, player := range players {
+		spawnAngle := rand.Float64() * 2 * math.Pi
+		spawnDist := rand.Float64() * g.Map.Radius
+
+		spawn := Position{
+			X: math.Cos(spawnAngle) * spawnDist,
+			Y: math.Sin(spawnAngle) * spawnDist,
+		}
+
+		g.Map.Players = append(g.Map.Players, &Player{
+			Position:       spawn,
+			Id:             i,
+			Name:           player,
+			Health:         PlayerFullHealth,
+			Weapon:         WeaponNone,
+			LoadedAmmo:     0,
+			ReloadCooldown: 0,
+		})
+	}
 }
 
 func (g *Game) GreetPlayers() {
