@@ -1,4 +1,5 @@
 import json
+import sys
 from abc import abstractstaticmethod
 
 
@@ -10,6 +11,9 @@ class XY:
     @classmethod
     def from_json(cls, data: dict):
         return cls(data.get('x'), data.get('y'))
+
+    def __str__(self):
+        return f"XY({self.x}, {self.y})"
 
 
 class Wall:
@@ -93,6 +97,13 @@ class Game:
         self.player: Player
         self.enemy_players: list[EnemyPlayer]
         self.items = list[Item]
+
+    @staticmethod
+    def log(*args):
+        """
+        Vypíše dáta do logu. Syntax je rovnaká ako print().
+        """
+        print(*args, file=sys.stderr)
 
     def _send_turn(self, turn: Turn):
         turn.print()
