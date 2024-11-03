@@ -29,6 +29,7 @@ class Map:
     @classmethod
     def read_map(cls):
         map_json = input()
+        input()
         return Map(json.load(map_json))
 
 

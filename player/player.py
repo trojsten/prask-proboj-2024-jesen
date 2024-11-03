@@ -1,3 +1,4 @@
+#!/bin/python3
 from proboj import *
 
 class Hrac(Game):
