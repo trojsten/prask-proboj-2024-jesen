@@ -88,7 +88,7 @@ class MoveTurn(Turn):
 class Game:
 
     def __init__(self):
-        self.map: Map
+        self.map: Map.read_map()
         self.player: Player
         self.enemy_players: list[EnemyPlayer]
         self.items = list[Item]
