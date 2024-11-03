@@ -30,7 +30,7 @@ class Map:
     def read_map(cls):
         map_json = input()
         input()
-        return Map(json.load(map_json))
+        return Map(json.loads(map_json))
 
 
 class Player:
@@ -89,7 +89,7 @@ class MoveTurn(Turn):
 class Game:
 
     def __init__(self):
-        self.map: Map.read_map()
+        self.map = Map.read_map()
         self.player: Player
         self.enemy_players: list[EnemyPlayer]
         self.items = list[Item]
@@ -99,6 +99,7 @@ class Game:
 
     def _read_state(self):
         data = json.loads(input())
+        self.map.radius = data.get('radius')
         self.player = Player.read_player(data.get('player'))
         self.items = [Item(item) for item in data.get('visible_items')]
         self.enemy_players = [EnemyPlayer(p) for p in data.get('visible_players')]
