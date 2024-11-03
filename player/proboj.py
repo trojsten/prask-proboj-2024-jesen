@@ -1,4 +1,5 @@
 import json
+from abc import abstractstaticmethod
 
 
 class XY:
@@ -55,6 +56,10 @@ class EnemyPlayer:
     def read_player(cls, data: dict):
         return cls(data)
 
+    def __eq__(self, other):
+        return self.id == other.id
+    def __hash__(self):
+        return self.id
 
 class Item:
     def __init__(self, data):
@@ -66,12 +71,52 @@ class Item:
     def read_item(cls, data: dict):
         return cls(data)
 
+class Turn:
+    def print(self):
+        print(".")
 
-def read_state() -> (Player, list[Item], list[EnemyPlayer]):
-    data = json.loads(input())
-    items = [Item(item) for item in data.get('visible_items')]
-    enemy_players = [EnemyPlayer(p) for p in data.get('visible_players')]
-    return Player.read_player(data.get('player')), items, enemy_players
+class MoveTurn(Turn):
+    def __init__(self, goal: XY):
+        self.goal = goal
+
+
+    def print(self):
+        print(f"MOVE {self.goal.x} {self.goal.y}")
+        print(".")
+
+
+class Game:
+
+    def __init__(self):
+        self.map: Map
+        self.player: Player
+        self.enemy_players: list[EnemyPlayer]
+        self.items = list[Item]
+
+    def _send_turn(self, turn: Turn):
+        turn.print()
+
+    def _read_state(self):
+        data = json.loads(input())
+        self.player = Player.read_player(data.get('player'))
+        self.items = [Item(item) for item in data.get('visible_items')]
+        self.enemy_players = [EnemyPlayer(p) for p in data.get('visible_players')]
+        input()
+
+    def make_turn(self) -> Turn:
+        raise NotImplementedError()
+
+    def run(self):
+        while True:
+            self._read_state()
+            turn = self.make_turn()
+            self._send_turn(turn)
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
