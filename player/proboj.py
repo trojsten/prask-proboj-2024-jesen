@@ -21,6 +21,9 @@ class Wall:
         self.a = XY.from_json(data.get('a'))
         self.b = XY.from_json(data.get('b'))
 
+    def __str__(self):
+        return f"Wall({self.a}, {self.b})"
+
 
 class Map:
 
@@ -50,6 +53,15 @@ class Player:
     def read_player(cls, data: dict):
         return cls(data)
 
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return self.id
+
+    def __str__(self):
+        return f"Player({self.id}, {self.xy})"
+
 
 class EnemyPlayer:
     def __init__(self, data):
@@ -63,8 +75,13 @@ class EnemyPlayer:
 
     def __eq__(self, other):
         return self.id == other.id
+
     def __hash__(self):
         return self.id
+
+    def __str__(self):
+        return f"EnemyPlayer({self.id}, {self.xy})"
+
 
 class Item:
     def __init__(self, data):
@@ -76,17 +93,44 @@ class Item:
     def read_item(cls, data: dict):
         return cls(data)
 
+    def __str__(self):
+        return f"Item({self.xy}, {self.type})"
+
+
 class Turn:
     def print(self):
         print(".")
+
 
 class MoveTurn(Turn):
     def __init__(self, goal: XY):
         self.goal = goal
 
-
     def print(self):
         print(f"MOVE {self.goal.x} {self.goal.y}")
+        print(".")
+
+
+class ShootTurn(Turn):
+    def __init__(self, target: EnemyPlayer):
+        self.target = target
+
+    def print(self):
+        print(f"SHOOT {self.target.id}")
+        print(".")
+
+
+class PickUpTurn(Turn):
+
+    def print(self):
+        print(f"PICKUP")
+        print(".")
+
+
+class DropTurn(Turn):
+
+    def print(self):
+        print(f"DROP")
         print(".")
 
 
@@ -124,12 +168,6 @@ class Game:
             self._read_state()
             turn = self.make_turn()
             self._send_turn(turn)
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

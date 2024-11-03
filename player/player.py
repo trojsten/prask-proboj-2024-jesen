@@ -8,5 +8,5 @@ class Hrac(Game):
 
 if __name__ == '__main__':
     g = Hrac()
-    g.log(f"SOM na f{g.player.xy}")
+    g.log(f"SOM f{g.player}")
     g.run()
