@@ -14,6 +14,10 @@ func (p Position) SquaredDistance(p2 Position) float64 {
 	return dx*dx + dy*dy
 }
 
+func (p Position) Distance(p2 Position) float64 {
+	return math.Sqrt(p.SquaredDistance(p2))
+}
+
 func (p Position) VectorTo(target Position) Vector {
 	return Vector{target.X - p.X, target.Y - p.Y}
 }

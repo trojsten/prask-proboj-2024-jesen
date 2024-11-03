@@ -1,4 +1,7 @@
 package main
 
-const PLAYER_RADIUS = 5
-const PLAYER_MOVEMENT_RANGE = 50
+const PlayerRadius = 5
+const PlayerMovementRange = 50
+const PlayerPickupRadius = 2
+const HealthItemRegeneration = 20
+const PlayerFullHealth = 100

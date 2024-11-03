@@ -21,8 +21,8 @@ func TestGame_whereToMove(t *testing.T) {
 		{
 			name:   "too far",
 			walls:  nil,
-			target: Position{PLAYER_MOVEMENT_RANGE * 100, 0},
-			want:   Position{PLAYER_MOVEMENT_RANGE, 0},
+			target: Position{PlayerMovementRange * 100, 0},
+			want:   Position{PlayerMovementRange, 0},
 		},
 		{
 			name: "wall away",
@@ -38,7 +38,7 @@ func TestGame_whereToMove(t *testing.T) {
 				{Position{10, -20}, Position{10, 20}},
 			},
 			target: Position{20, 0},
-			want:   Position{10 - PLAYER_RADIUS, 0},
+			want:   Position{10 - PlayerRadius, 0},
 		},
 	}
 

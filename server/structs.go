@@ -1,11 +1,5 @@
 package main
 
-type Weapon int
-
-const (
-	WEAPON_NONE = iota
-)
-
 type Player struct {
 	Position
 	Id             int    `json:"id"`
@@ -21,8 +15,8 @@ type Stats struct{}
 type ItemType int
 
 const (
-	ITEM_WEAPON = iota
-	ITEM_HEALTH
+	ItemWeapon = iota
+	ItemHealth
 )
 
 type Item struct {
