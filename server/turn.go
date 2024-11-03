@@ -97,10 +97,14 @@ func (g *Game) removeItem(item *Item) {
 	g.Map.Items = newItems
 }
 
-func (g *Game) processTurn(p *Player) bool {
+var ErrorRunner = errors.New("runner returned an error")
+var ErrorInvalid = errors.New("player provided invalid data")
+var ErrorUnapplicable = errors.New("player provided command that could not be completed")
+
+func (g *Game) processTurn(p *Player) error {
 	resp, strData := g.Runner.ReadPlayer(p.Name)
 	if resp != client.Ok {
-		return false
+		return ErrorRunner
 	}
 
 	data := strings.Split(strData, " ")
@@ -112,7 +116,7 @@ func (g *Game) processTurn(p *Player) bool {
 		target, err := loadPosition(args)
 		if err != nil {
 			g.Runner.Log(fmt.Sprintf("rejecting MOVE from %v: %v", p.Name, err))
-			return false
+			return ErrorInvalid
 		}
 
 		target = g.whereToMove(p, target)
@@ -122,24 +126,25 @@ func (g *Game) processTurn(p *Player) bool {
 		targetPlayerId, err := strconv.Atoi(args[0])
 		if err != nil {
 			g.Runner.Log(fmt.Sprintf("rejecting SHOOT from %v: %v", p.Name, err))
-			return false
+			return ErrorInvalid
 		}
 
 		if targetPlayerId < 0 || targetPlayerId >= len(g.Map.Players) {
 			g.Runner.Log(fmt.Sprintf("rejecting SHOOT from %v: unknown player %v", p.Name, targetPlayerId))
-			return false
+			return ErrorInvalid
 		}
 		targetPlayer := g.Map.Players[targetPlayerId]
 
 		err = g.shoot(p, targetPlayer)
 		if err != nil {
 			g.Runner.Log(fmt.Sprintf("rejecting SHOOT from %v: %v", p.Name, err))
-			return false
+			return ErrorUnapplicable
 		}
+		g.Runner.Log(fmt.Sprintf("shooting %v --PIF-> %v", p.Name, targetPlayer.Name))
 	case "RELOAD":
 		if p.ReloadCooldown != 0 {
 			g.Runner.Log(fmt.Sprintf("rejecting RELOAD from %v: still reloading, %v", p.Name, p.ReloadCooldown))
-			return false
+			return ErrorUnapplicable
 		}
 
 		weapon := WeaponStatsMap[p.Weapon]
@@ -149,7 +154,7 @@ func (g *Game) processTurn(p *Player) bool {
 	case "DROP":
 		if p.Weapon == WeaponNone {
 			g.Runner.Log(fmt.Sprintf("rejecting DROP from %v: no weapon to drop", p.Name))
-			return false
+			return ErrorUnapplicable
 		}
 		g.Map.Items = append(g.Map.Items, &Item{
 			Position: p.Position,
@@ -162,7 +167,7 @@ func (g *Game) processTurn(p *Player) bool {
 		item := g.closestItem(p.Position)
 		if item == nil {
 			g.Runner.Log(fmt.Sprintf("rejecting PICKUP from %v: no item in range", p.Name))
-			return false
+			return ErrorUnapplicable
 		}
 
 		switch item.Type {
@@ -182,5 +187,5 @@ func (g *Game) processTurn(p *Player) bool {
 		}
 	}
 
-	return true
+	return nil
 }

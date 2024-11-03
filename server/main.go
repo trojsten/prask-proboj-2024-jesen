@@ -22,5 +22,7 @@ func main() {
 		for _, player := range game.Map.Players {
 			game.DoTurn(player)
 		}
+
+		// TODO: tick
 	}
 }
