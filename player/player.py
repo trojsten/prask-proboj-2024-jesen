@@ -4,7 +4,7 @@ from proboj import *
 
 class Hrac(Game):
     def make_turn(self) -> Turn:
-        self.log(Wea)
+        self.log("WeaponNone.stats.Range: ", WeaponNone.stats.Range)
         return MoveTurn(XY(0,0))
 
 
