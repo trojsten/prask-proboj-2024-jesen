@@ -14,4 +14,13 @@ func (g *Game) Tick() {
 			player.Health -= WorldBorderDamage
 		}
 	}
+
+	newItems := []*Item{}
+	for _, item := range g.Map.Items {
+		if item.Distance(Position{}) >= g.Map.Radius {
+			continue
+		}
+		newItems = append(newItems, item)
+	}
+	g.Map.Items = newItems
 }
