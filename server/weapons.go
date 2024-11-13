@@ -4,6 +4,9 @@ type Weapon int
 
 const (
 	WeaponNone = iota
+	WeaponKnife
+	WeaponPistol
+	WeaponTommy
 )
 
 type WeaponStats struct {
@@ -14,5 +17,8 @@ type WeaponStats struct {
 }
 
 var WeaponStatsMap = map[Weapon]WeaponStats{
-	WeaponNone: {},
+	WeaponNone:   {},
+	WeaponKnife:  {10, 2, 0, 1},
+	WeaponPistol: {PlayerMovementRange * 5, 5, 2, 10},
+	WeaponTommy:  {PlayerMovementRange * 10, 8, 4, 25},
 }

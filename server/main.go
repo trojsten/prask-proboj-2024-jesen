@@ -19,7 +19,7 @@ func main() {
 
 	// TODO: load or generate map
 	game.Map = &Map{
-		Radius:  1000,
+		Radius:  WorldRadius,
 		Walls:   []*Wall{},
 		Items:   []*Item{},
 		Players: []*Player{},
