@@ -1,0 +1,19 @@
+{
+  "server": "./srv",
+  "game_root": ".",
+  "players": {
+    "first": {
+      "command": "./player/player.py",
+      "language": "py"
+    },
+    "second": {
+      "command": "./player/player.py",
+      "language": "py"
+    }
+  },
+  "timeout": {
+    "py": 1,
+    "cpp":1
+  },
+  "disable_gzip": true
+}
