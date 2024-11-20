@@ -3,7 +3,7 @@ import math
 import sys
 from abc import abstractstaticmethod
 
-from player.weapons import weaponTypes
+from weapons import weaponTypes
 
 
 class XY:

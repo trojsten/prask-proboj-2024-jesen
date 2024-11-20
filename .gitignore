@@ -2,3 +2,5 @@
 c.out
 __pycache__/
 /game/
+runner
+srv
