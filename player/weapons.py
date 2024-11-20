@@ -1,3 +1,5 @@
+import enum
+
 from attr import dataclass
 
 @dataclass
@@ -6,6 +8,7 @@ class WeaponStats:
     Damage: int
     ReloadTime: int
     AmmoCapacity: int
+
 
 @dataclass
 class WeaponNone:
@@ -19,3 +22,11 @@ class WeaponPistol:
 @dataclass
 class WeaponTommy:
     stats = WeaponStats(5 * 10, 8, 4, 25)
+
+
+weaponTypes = {
+    0: WeaponNone,
+    1: WeaponKnife,
+    2: WeaponPistol,
+    3: WeaponTommy
+}

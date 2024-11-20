@@ -3,6 +3,8 @@ import math
 import sys
 from abc import abstractstaticmethod
 
+from player.weapons import weaponTypes
+
 
 class XY:
     """
@@ -75,7 +77,7 @@ class Player:
         self.id = data.get('id')
         self.xy = XY(data.get('x'), data.get('y'))
         self.health = data.get('health')
-        self.weapon = data.get('weapon')
+        self.weapon = weaponTypes[data.get('weapon')]
         self.laoded_ammo = data.get('laoded_ammo')
         self.reload_cooldown = data.get('reload_cooldown')
 
@@ -105,7 +107,7 @@ class EnemyPlayer:
     def __init__(self, data):
         self.xy = XY(data.get('x'), data.get('y'))
         self.id = data.get('id')
-        self.weapon = data.get('weapon')
+        self.weapon = weaponTypes[data.get('weapon')]
 
     @classmethod
     def read_player(cls, data: dict):
@@ -132,7 +134,7 @@ class Item:
     def __init__(self, data):
         self.xy = XY(data.get('x'), data.get('y'))
         self.type = data.get('type')
-        self.weapon = data.get('weapon')
+        self.weapon = weaponTypes[data.get('weapon')]
 
     @classmethod
     def read_item(cls, data: dict):

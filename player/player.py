@@ -1,11 +1,12 @@
 #!/bin/python3
-from weapons import *
 from proboj import *
+import random
 
 class Hrac(Game):
     def make_turn(self) -> Turn:
-        self.log("WeaponNone.stats.Range: ", WeaponNone.stats.Range)
-        return MoveTurn(XY(0,0))
+        self.log(self.player)
+        self.log("WeaponNone.stats.Range: ", self.player.weapon.stats.Range)
+        return MoveTurn(XY(random.randint(-100,100),random.randint(-100,100)))
 
 
 if __name__ == '__main__':
