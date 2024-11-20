@@ -24,7 +24,7 @@ func (g *Game) SendMapToObserver() {
 		panic(err)
 	}
 
-	g.Runner.ToObserver(string(data))
+	g.Runner.ToObserver(string(data) + "\n")
 }
 
 func (g *Game) SendStateToObserver() {
@@ -39,5 +39,5 @@ func (g *Game) SendStateToObserver() {
 		panic(err)
 	}
 
-	g.Runner.ToObserver(string(data))
+	g.Runner.ToObserver(string(data) + "\n")
 }
