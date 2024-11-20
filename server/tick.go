@@ -10,7 +10,7 @@ func (g *Game) Tick() {
 		}
 		player.ReloadCooldown = max(player.ReloadCooldown-1, 0)
 
-		if center.Distance(player.Position) > g.Map.Radius {
+		if center.Distance(player.Position) > g.Map.Radius-PlayerRadius {
 			player.Health -= WorldBorderDamage
 		}
 	}
