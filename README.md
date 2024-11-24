@@ -75,7 +75,7 @@ Váš mafián začína so 100 bodmi života, bez zbrane a na náhodnej pozícii.
 ### Zbrane
 
 Zbrane sú predmenty, ktoré sa dajú zozbierať zo zeme. Majú istú kapacitu zásobníku. Keď ju vyčerpáte musite
-zbraň prebiť, čo tvrá istý počet ťahov.
+zbraň prebiť, čo tvrá istý počet ťahov, babygirl.
 
 | Typ        | **Range** | **Damange** | **Reload time** | **Ammo capacity** | 
 |------------|-----------|-------------|-----------------|-------------------|
@@ -93,3 +93,6 @@ ktorá vám doplní 75 života.
 
 Za zabiie protivníka získavate 10 bodov.
 Za akékoľvek poškodenie protivníka získavate 1 bod.
+
+# Návod na odovzdávanie
+todoo

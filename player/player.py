@@ -4,6 +4,7 @@ import random
 
 class Hrac(Game):
     def make_turn(self) -> Turn:
+        # V tejto metóde píšte kód pre vášho
         self.log(self.player)
         self.log("WeaponNone.stats.Range: ", self.player.weapon.stats.Range)
         
