@@ -6,7 +6,7 @@ Proboj, skratka pre progamátorský boj, je aktivita z KSP sústredení, kde hr�
 súťazí v predom pripravenej hre. K hre je taktiež pripravený template bota, ktorý zvláda komunikáciu so serverom a nejaké
 užitočné funkcie. Taktiež obsahuje veľmi jednoduchý príklad jednoduchého bota, ktorého môžete dalej upravovať.
 
-## Štruktúra/harmonogram 
+## Štruktúra/harmonogram 
 
 Počas proboja bežia hry (matche), v ktoré sa skladajú z niekoľko stovák kôl, v ktorých vaši boti hrajú. Počas tejto hry 
 (matchu) sa nemení mapa, na ktorej hráte a ani ostatní boti, proti ktorým hráte.
@@ -60,8 +60,36 @@ Prebiť môžete taktiež ako samostatný úkon. Kým budete prebíjať nemôže
 
 ### Zvihnúť zo zeme
 
-Na zemi je kopa rôznych vecí. Mafián ich môže tieto veci zo zeme v ťahu zobrať.
+Na zemi je kopa rôznych predmentov. Mafián ich môže tieto predmenty zo zeme v ťahu zobrať.
 
-### Vyhodiť vec z ruky
+### Vyhodiť zbraň z ruky
 
-Váš mafián môže zahodiť vec z ruky.    
+Váš mafián môže zahodiť zbraň z ruky.    
+
+## Herné objekty
+
+### Mafián
+
+Mafián je váš hráč. Môžete sa s ním pohybovať, strielať a zbierať (vyhadzovať) predmenty.
+Váš mafián začína so 100 bodmi života, bez zbrane a na náhodnej pozícii.
+### Zbrane
+
+Zbrane sú predmenty, ktoré sa dajú zozbierať zo zeme. Majú istú kapacitu zásobníku. Keď ju vyčerpáte musite
+zbraň prebiť, čo tvrá istý počet ťahov.
+
+| Typ        | **Range** | **Damange** | **Reload time** | **Ammo capacity** | 
+|------------|-----------|-------------|-----------------|-------------------|
+| **None**   | 0         | 0           | 0               | 0                 |
+| **Knife**  | 10        | 34          | 0               | 1                 | 
+| **Pistol** | 25        | 5           | 2               | 10                | 
+| **Tommy**  | 50        | 8           | 4               | 25                |
+
+### Lekárnička
+
+Zdravotnícke oddelienie sústredia zasponzorovalo zopár svojich lečivých zázrakov. Môžete so zeme zdvyhnúť lekárničku,
+ktorá vám doplní 75 života.
+
+## Hodnotenie 
+
+Za zabiie protivníka získavate 10 bodov.
+Za akékoľvek poškodenie protivníka získavate 1 bod.

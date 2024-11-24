@@ -196,6 +196,15 @@ class DropTurn(Turn):
         print(f"DROP")
         print(".")
 
+class ReloadTurn(Turn):
+    """
+    ReloadTurn je trieda, ktorá preprezentuje ťah prebitia zbrane.
+    Prebije vybavenú zbraň hráča.
+    """
+    def print(self):
+        print(f"RELOAD")
+        print(".")
+
 
 class Game:
     """
