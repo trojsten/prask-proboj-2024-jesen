@@ -15,7 +15,7 @@ func main() {
 		Turn:   0,
 	}
 
-	players, _ := runner.ReadConfig()
+	players, mapName := runner.ReadConfig()
 
 	// TODO: load or generate map
 	game.Map = &Map{
@@ -24,6 +24,11 @@ func main() {
 		Items:   []*Item{},
 		Players: []*Player{},
 	}
+
+	if mapName != "" {
+		game.LoadMap(mapName)
+	}
+
 	game.SpawnPlayers(players)
 	game.SendMapToObserver()
 	game.GreetPlayers()
