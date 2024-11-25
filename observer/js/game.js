@@ -15,7 +15,7 @@ class Game {
         this.playing = false
         this.stopPlayback()
         this.nextFrameId = null
-        this.frameSpeed = 10
+        this.frameSpeed = 100
     }
 
     /** @type {string} observerString */

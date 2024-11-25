@@ -69,8 +69,9 @@ class Renderer {
     /** @type {Player[]} players */
     renderScoreboard(players) {
         this.scoreboardLayer.removeChildren()
+        const WEAPONS = ["", "KNIFE", "PISTOL", "TOMMY"]
 
-        players.sort((a, b) => a.score - b.score)
+        players.sort((a, b) => b.score - a.score)
         for (let i = 0; i < players.length; i++) {
             let group = new Konva.Group()
             let Y = 35*i
@@ -104,12 +105,13 @@ class Renderer {
                 fontFamily: 'Arial',
                 fill: 'white',
             });
+            score.x(200 - 5 - score.getTextWidth())
             group.add(score)
 
             let hp = new Konva.Text({
                 x: 5,
                 y: Y+19,
-                text: players[i].health + " HP",
+                text: players[i].health + " HP, " + WEAPONS[players[i].weapon],
                 fontSize: 10,
                 fontFamily: 'Arial',
                 fill: 'white',
@@ -207,8 +209,12 @@ class Renderer {
 
         layer._healthbar.width(30 * (player.health / 100))
 
-        layer.x(player.x)
-        layer.y(player.y)
+        new Konva.Tween({
+            node: layer,
+            duration: game.frameSpeed / 1000,
+            x: player.x,
+            y: player.y,
+        }).play()
     }
 
     /** @type {MapItem[]} items */
@@ -219,7 +225,7 @@ class Renderer {
                 x: item.x,
                 y: item.y,
                 radius: 3,
-                fill: "yellow",
+                fill: item.type === 0 ? "yellow" : "cyan",
             })
             this.itemGroup.add(i)
         }
@@ -235,11 +241,23 @@ class Renderer {
         this.renderItems(frame.items)
         this.renderScoreboard(frame.players)
 
-        this.mapLayer.x(this.canvas.width()/2)
-        this.mapLayer.y(this.canvas.height()/2)
 
-        // mozno bbox?
-        let s = (this.canvas.height()-100) / (frame.radius * 2)
-        this.mapLayer.scale({x: s, y: s})
+        let xPositions = frame.players.filter(p => p.health > 0).map(p => p.x).sort()
+        let yPositions = frame.players.filter(p => p.health > 0).map(p => p.y).sort()
+
+        let width = Math.max(Math.abs(xPositions[xPositions.length - 1] - xPositions[0] + 150), 500)
+        let height = Math.max(Math.abs(yPositions[yPositions.length - 1] - yPositions[0] + 150), 500)
+        let centerX = (xPositions[xPositions.length - 1] + xPositions[0]) / 2
+        let centerY = (yPositions[yPositions.length - 1] + yPositions[0]) / 2
+
+        let s = Math.min(this.canvas.width() / width, this.canvas.height() / height)
+        new Konva.Tween({
+            node: this.mapLayer,
+            duration: game.frameSpeed / 1000,
+            x: this.canvas.width()/2 - centerX * s,
+            y: this.canvas.height()/2 - centerY * s,
+            scaleX: s,
+            scaleY: s,
+        }).play()
     }
 }
