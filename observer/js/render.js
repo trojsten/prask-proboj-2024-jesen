@@ -192,7 +192,7 @@ class Renderer {
                 height: 5,
                 x: -15,
                 y: 10,
-                fill: "red",
+                fill: "green",
             })
 
             group.add(group._healthbar)

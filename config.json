@@ -7,7 +7,7 @@
       "language": "py"
     },
     "second": {
-      "command": "./player/player.py",
+      "command": "./player/lepsi_player.py",
       "language": "py"
     }
   },

@@ -5,6 +5,6 @@
       "first",
       "second"
     ],
-    "args": ""
+    "args": "../map.json"
   }
 ]
