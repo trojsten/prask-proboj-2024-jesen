@@ -3,7 +3,7 @@ import math
 import sys
 from abc import abstractstaticmethod
 
-from weapons import weaponTypes
+from weapons import weaponTypes, itemTypes
 
 
 class XY:
@@ -133,8 +133,9 @@ class Item:
     """
     def __init__(self, data):
         self.xy = XY(data.get('x'), data.get('y'))
-        self.type = data.get('type')
-        self.weapon = weaponTypes[data.get('weapon')]
+        self.type = itemTypes[data.get('type')]
+        if self.type == 'weapon':
+            self.weapon = weaponTypes[data.get('weapon')]
 
     @classmethod
     def read_item(cls, data: dict):
@@ -220,7 +221,7 @@ class Game:
         self.map = Map.read_map()
         self.player: Player
         self.enemy_players: list[EnemyPlayer]
-        self.items = list[Item]
+        self.items: list[Item]
 
     @staticmethod
     def log(*args):

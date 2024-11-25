@@ -30,3 +30,8 @@ weaponTypes = {
     2: WeaponPistol,
     3: WeaponTommy
 }
+
+itemTypes = {
+    0: "weapon",
+    1: "health"
+}
