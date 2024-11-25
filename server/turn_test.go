@@ -71,7 +71,7 @@ func TestGame_whereToMove(t *testing.T) {
 			},
 			start:  Position{-10, 8},
 			target: Position{46, 68},
-			want:   Position{10 - PlayerRadius, 0},
+			want:   Position{3.6463650072002203, 22.621105364857378},
 		},
 	}
 

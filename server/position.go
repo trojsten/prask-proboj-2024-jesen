@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type Position struct {
 	X float64 `json:"x"`
@@ -53,22 +56,47 @@ func (v Vector) IsZero() bool {
 	return v.X == 0 && v.Y == 0
 }
 
+func (v Vector) CP(w Vector) float64 {
+	return v.X*w.Y - v.Y*w.X
+}
+
 func Intesect(a1, a2, b1, b2 Position) (Position, bool) {
-	t1 := (a1.X-b1.X)*(b2.Y-b1.Y) - (a1.Y-b1.Y)*(b1.X-b2.X)
-	t2 := (a1.X-a2.X)*(b2.Y-b1.Y) - (a1.Y-a2.Y)*(b1.X-b2.X)
-	t := t1 / t2
+	// https://stackoverflow.com/a/565282
+	vecA := a1.VectorTo(a2)
+	vecB := b1.VectorTo(b2)
+	vecX := a1.VectorTo(b1)
 
-	u1 := (a1.X-a2.X)*(a1.Y-b1.Y) - (a1.Y-a2.Y)*(a1.X-b1.X)
-	u2 := (a1.X-a2.X)*(b2.Y-b1.Y) - (a1.Y-a2.Y)*(b1.X-b2.X)
-	u := u1 / u2
+	// b1 = q, a1 = p
+	// s = B
+	// r = A
 
-	intersects := 0 <= t && t <= 1 && 0 <= u && u <= 1
-	point := Position{
-		X: a1.X + t*(a2.X-a1.X),
-		Y: a1.Y + t*(a2.Y-a1.Y),
+	if vecA.CP(vecB) == 0 {
+		fmt.Println("coll", vecX.CP(vecA))
+		if vecX.CP(vecA) == 0 {
+			// t0 = (q − p) · r / (r · r)
+			t0 := vecX.DotProduct(vecA) / vecA.DotProduct(vecA)
+			// t1 = (q + s − p) · r / (r · r) = t0 + s · r / (r · r)
+			t1 := a1.VectorTo(b2).DotProduct(vecA) / vecA.DotProduct(vecA)
+
+			i0 := a1.Add(vecA.Mul(t0))
+			i1 := a1.Add(vecA.Mul(t1))
+
+			intersect := i0
+			if i0.Distance(a1) > i1.Distance(a1) {
+				intersect = i1
+			}
+
+			return intersect, true
+		}
+		return Position{}, false
 	}
-	if intersects {
-		return point, true
+
+	t := vecX.CP(vecB) / vecA.CP(vecB)
+	u := vecX.CP(vecA) / vecA.CP(vecB)
+
+	if 0 <= t && t <= 1 && 0 <= u && u <= 1 {
+		return a1.Add(vecA.Mul(t)), true
 	}
+
 	return Position{}, false
 }
