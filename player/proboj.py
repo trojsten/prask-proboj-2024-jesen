@@ -21,7 +21,7 @@ class XY:
     def dist(self, other) -> float:
         dx = self.x - other.x
         dy = self.y - other.y
-        return math.sqrt(dx*dx+dy*dy)
+        return math.sqrt((dx*dx)+(dy*dy))
 
     def __str__(self):
         return f"XY({self.x}, {self.y})"
@@ -163,6 +163,8 @@ class MoveTurn(Turn):
         print(f"MOVE {self.goal.x} {self.goal.y}")
         print(".")
 
+    def __str__(self):
+        return f"MOVE {self.goal}"
 
 class ShootTurn(Turn):
     """
@@ -177,6 +179,8 @@ class ShootTurn(Turn):
         print(f"SHOOT {self.target.id}")
         print(".")
 
+    def __str__(self):
+        return f"SHOOT {self.target}"
 
 class PickUpTurn(Turn):
     """
@@ -186,7 +190,8 @@ class PickUpTurn(Turn):
     def print(self):
         print(f"PICKUP")
         print(".")
-
+    def __str__(self):
+        return "PICK UP"
 
 class DropTurn(Turn):
     """
@@ -197,6 +202,9 @@ class DropTurn(Turn):
         print(f"DROP")
         print(".")
 
+    def __str__(self):
+        return "DROP"
+
 class ReloadTurn(Turn):
     """
     ReloadTurn je trieda, ktorá preprezentuje ťah prebitia zbrane.
@@ -205,6 +213,9 @@ class ReloadTurn(Turn):
     def print(self):
         print(f"RELOAD")
         print(".")
+
+    def __str__(self):
+        return "TACTICAL REALOAD"
 
 
 class Game:
@@ -248,6 +259,7 @@ class Game:
         while True:
             self._read_state()
             turn = self.make_turn()
+            self.log(turn)
             self._send_turn(turn)
 
 
