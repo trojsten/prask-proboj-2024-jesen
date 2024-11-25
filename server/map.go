@@ -38,7 +38,7 @@ func (g *Game) SpawnItems() {
 
 		if rand.Intn(2) == 1 {
 			itemType = ItemWeapon
-			weapon = Weapon(rand.Intn(4))
+			weapon = Weapon(rand.Intn(3) + 1)
 		}
 
 		item := Item{

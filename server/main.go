@@ -17,7 +17,6 @@ func main() {
 
 	players, mapName := runner.ReadConfig()
 
-	// TODO: load or generate map
 	game.Map = &Map{
 		Radius:  WorldRadius,
 		Walls:   []*Wall{},
