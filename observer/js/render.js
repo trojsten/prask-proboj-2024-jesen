@@ -39,6 +39,7 @@
  * @prop {string} name
  * @prop {number} health
  * @prop {number} weapon
+ * @prop {number} score
  * @prop {number} loaded_ammo
  * @prop {number} reload_cooldown
  */
@@ -55,10 +56,72 @@ class Renderer {
         })
         this.playerLayers = {}
         this.mapLayer = new Konva.Layer()
+        this.scoreboardLayer = new Konva.Layer()
+        this.scoreboardLayer.x(width - 205)
+        this.scoreboardLayer.y(5)
         this.itemGroup = new Konva.Group()
         this.mapLayer.add(this.itemGroup)
 
         this.canvas.add(this.mapLayer)
+        this.canvas.add(this.scoreboardLayer)
+    }
+
+    /** @type {Player[]} players */
+    renderScoreboard(players) {
+        this.scoreboardLayer.removeChildren()
+
+        players.sort((a, b) => a.score - b.score)
+        for (let i = 0; i < players.length; i++) {
+            let group = new Konva.Group()
+            let Y = 35*i
+            let r = new Konva.Rect({
+                x: 0,
+                y: Y,
+                width: 200,
+                height: 30,
+                fill: "black",
+            })
+            group.add(r)
+
+            let name = new Konva.Text({
+                x: 5,
+                y: Y+3,
+                text: players[i].name,
+                fontSize: 16,
+                fontStyle: "bold",
+                fontFamily: 'Arial',
+                fill: 'white',
+            });
+            group.add(name)
+
+            let score = new Konva.Text({
+                x: 200-18,
+                y: Y+4,
+                text: players[i].score,
+                fontSize: 24,
+                fontStyle: "bold",
+                align: "right",
+                fontFamily: 'Arial',
+                fill: 'white',
+            });
+            group.add(score)
+
+            let hp = new Konva.Text({
+                x: 5,
+                y: Y+19,
+                text: players[i].health + " HP",
+                fontSize: 10,
+                fontFamily: 'Arial',
+                fill: 'white',
+            });
+            group.add(hp)
+
+            if (players[i].health <= 0) {
+                group.opacity(0.1)
+            }
+
+            this.scoreboardLayer.add(group)
+        }
     }
 
     /** @type {Map} map */
@@ -170,6 +233,7 @@ class Renderer {
         }
 
         this.renderItems(frame.items)
+        this.renderScoreboard(frame.players)
 
         this.mapLayer.x(this.canvas.width()/2)
         this.mapLayer.y(this.canvas.height()/2)
