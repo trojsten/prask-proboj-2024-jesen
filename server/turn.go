@@ -152,6 +152,7 @@ func (g *Game) processTurn(p *Player) error {
 			return ErrorUnapplicable
 		}
 		g.Runner.Log(fmt.Sprintf("shooting %v --PIF-> %v", p.Name, targetPlayer.Name))
+		g.TurnShootings = append(g.TurnShootings, Shooting{Attacker: p, Target: targetPlayer})
 	case "RELOAD":
 		if p.ReloadCooldown != 0 {
 			g.Runner.Log(fmt.Sprintf("rejecting RELOAD from %v: still reloading, %v", p.Name, p.ReloadCooldown))

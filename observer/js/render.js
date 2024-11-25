@@ -17,10 +17,17 @@
  */
 
 /**
+ * @typedef Shooting
+ * @prop {Position} attacker
+ * @prop {Position} target
+ */
+
+/**
  * @typedef Frame
  * @prop {number} radius
  * @prop {MapItem[]} items
  * @prop {Player[]} players
+ * @prop {Shooting[]} shootings
  */
 
 /**
@@ -61,6 +68,8 @@ class Renderer {
         this.scoreboardLayer.y(5)
         this.itemGroup = new Konva.Group()
         this.mapLayer.add(this.itemGroup)
+        this.shootingGroup = new Konva.Group()
+        this.mapLayer.add(this.shootingGroup)
 
         this.canvas.add(this.mapLayer)
         this.canvas.add(this.scoreboardLayer)
@@ -231,6 +240,19 @@ class Renderer {
         }
     }
 
+    /** @type {Shooting[]} shootings */
+    renderShootings(shootings) {
+        this.shootingGroup.removeChildren()
+        for (const shooting of shootings) {
+            let line = new Konva.Line({
+                points: [shooting.attacker.x, shooting.attacker.y, shooting.target.x, shooting.target.y],
+                stroke: "red",
+                strokeWidth: 1,
+            })
+            this.shootingGroup.add(line)
+        }
+    }
+
     /** @type {Frame} frame */
     render(frame) {
         this.mapBorder.radius(frame.radius)
@@ -240,7 +262,7 @@ class Renderer {
 
         this.renderItems(frame.items)
         this.renderScoreboard(frame.players)
-
+        this.renderShootings(frame.shootings)
 
         let xPositions = frame.players.filter(p => p.health > 0).map(p => p.x).sort()
         let yPositions = frame.players.filter(p => p.health > 0).map(p => p.y).sort()

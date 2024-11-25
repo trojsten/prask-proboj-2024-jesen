@@ -2,10 +2,16 @@ package main
 
 import "github.com/trojsten/ksp-proboj/client"
 
+type Shooting struct {
+	Attacker *Player
+	Target   *Player
+}
+
 type Game struct {
-	Runner *client.Runner
-	Map    *Map
-	Turn   int
+	Runner        *client.Runner
+	Map           *Map
+	Turn          int
+	TurnShootings []Shooting
 }
 
 func main() {
@@ -34,6 +40,7 @@ func main() {
 	game.GreetPlayers()
 
 	for game.ShouldContinue() {
+		game.TurnShootings = []Shooting{}
 		for _, player := range game.Map.Players {
 			game.DoTurn(player)
 		}
