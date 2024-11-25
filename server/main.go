@@ -38,6 +38,6 @@ func main() {
 	}
 
 	game.Runner.Log("that's all folks!")
-	// TODO: scores
+	game.SendScores()
 	game.Runner.End()
 }

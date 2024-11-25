@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/trojsten/ksp-proboj/client"
 	"sort"
 )
 
@@ -72,4 +73,12 @@ func (g *Game) ShouldContinue() bool {
 		}
 	}
 	return alive > 1
+}
+
+func (g *Game) SendScores() {
+	scores := client.Scores{}
+	for _, player := range g.Map.Players {
+		scores[player.Name] = player.Score
+	}
+	g.Runner.Scores(scores)
 }

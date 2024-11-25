@@ -8,6 +8,7 @@ type Player struct {
 	Weapon         Weapon `json:"weapon"`
 	LoadedAmmo     int    `json:"loaded_ammo"`
 	ReloadCooldown int    `json:"reload_cooldown"`
+	Score          int    `json:"score"`
 }
 
 type Stats struct{}

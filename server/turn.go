@@ -64,7 +64,14 @@ func (g *Game) shoot(shooter *Player, target *Player) error {
 		return fmt.Errorf("wall in the way @ %v", pos)
 	}
 
+	alive := target.Health > 0
+	if alive {
+		shooter.Score += ScoreHit
+	}
 	target.Health -= weapon.Damage
+	if alive && target.Health <= 0 {
+		shooter.Score += ScoreKill
+	}
 	shooter.LoadedAmmo--
 	if shooter.LoadedAmmo <= 0 {
 		shooter.ReloadCooldown = weapon.ReloadTime
