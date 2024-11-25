@@ -40,6 +40,30 @@ func TestGame_whereToMove(t *testing.T) {
 			target: Position{20, 0},
 			want:   Position{10 - PlayerRadius, 0},
 		},
+		{
+			name: "right at wall",
+			walls: []*Wall{
+				{Position{PlayerRadius, -20}, Position{PlayerRadius, 20}},
+			},
+			target: Position{20, 0},
+			want:   Position{0, 0},
+		},
+		{
+			name: "inside wall",
+			walls: []*Wall{
+				{Position{PlayerRadius - 2, -20}, Position{PlayerRadius - 2, 20}},
+			},
+			target: Position{20, 0},
+			want:   Position{-2, 0},
+		},
+		{
+			name: "wall end",
+			walls: []*Wall{
+				{Position{10, 0}, Position{10, 20}},
+			},
+			target: Position{20, 0},
+			want:   Position{10 - PlayerRadius, 0},
+		},
 	}
 
 	for _, tt := range tests {

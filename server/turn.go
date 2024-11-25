@@ -129,9 +129,10 @@ func (g *Game) processTurn(p *Player) error {
 			return ErrorInvalid
 		}
 
+		req := target
 		target = g.whereToMove(p, target)
 		p.Position = target
-		g.Runner.Log(fmt.Sprintf("moving player %v to %v", p.Name, target))
+		g.Runner.Log(fmt.Sprintf("moving player %v to %v (requested %v)", p.Name, target, req))
 	case "SHOOT":
 		targetPlayerId, err := strconv.Atoi(args[0])
 		if err != nil {
