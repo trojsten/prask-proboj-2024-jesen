@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -71,7 +70,6 @@ func Intesect(a1, a2, b1, b2 Position) (Position, bool) {
 	// r = A
 
 	if vecA.CP(vecB) == 0 {
-		fmt.Println("coll", vecX.CP(vecA))
 		if vecX.CP(vecA) == 0 {
 			// t0 = (q − p) · r / (r · r)
 			t0 := vecX.DotProduct(vecA) / vecA.DotProduct(vecA)
