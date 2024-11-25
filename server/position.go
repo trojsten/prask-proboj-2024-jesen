@@ -92,7 +92,7 @@ func Intesect(a1, a2, b1, b2 Position) (Position, bool) {
 	t := vecX.CP(vecB) / vecA.CP(vecB)
 	u := vecX.CP(vecA) / vecA.CP(vecB)
 
-	if 0 <= t && t <= 1 && 0 <= u && u <= 1 {
+	if 0 <= t && t <= 1 && 0 < u && u < 1 {
 		return a1.Add(vecA.Mul(t)), true
 	}
 

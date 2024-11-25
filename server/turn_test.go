@@ -62,7 +62,7 @@ func TestGame_whereToMove(t *testing.T) {
 				{Position{10, 0}, Position{10, 20}},
 			},
 			target: Position{20, 0},
-			want:   Position{10 - PlayerRadius, 0},
+			want:   Position{20, 0},
 		},
 		{
 			name: "bug",
