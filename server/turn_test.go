@@ -1,7 +1,6 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -9,6 +8,7 @@ func TestGame_whereToMove(t *testing.T) {
 	tests := []struct {
 		name   string
 		walls  []*Wall
+		start  Position
 		target Position
 		want   Position
 	}{
@@ -64,6 +64,15 @@ func TestGame_whereToMove(t *testing.T) {
 			target: Position{20, 0},
 			want:   Position{10 - PlayerRadius, 0},
 		},
+		{
+			name: "bug",
+			walls: []*Wall{
+				{Position{0, 0}, Position{250, 250}},
+			},
+			start:  Position{-10, 8},
+			target: Position{46, 68},
+			want:   Position{10 - PlayerRadius, 0},
+		},
 	}
 
 	for _, tt := range tests {
@@ -77,7 +86,7 @@ func TestGame_whereToMove(t *testing.T) {
 				},
 			}
 
-			if got := g.whereToMove(&Player{}, tt.target); !reflect.DeepEqual(got, tt.want) {
+			if got := g.whereToMove(&Player{Position: tt.start}, tt.target); got.Distance(tt.want) >= 0.0001 {
 				t.Errorf("whereToMove() = %v, want %v", got, tt.want)
 			}
 		})

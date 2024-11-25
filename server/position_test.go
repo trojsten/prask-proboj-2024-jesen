@@ -239,6 +239,12 @@ func TestIntesect(t *testing.T) {
 			Position{50, -20},
 			Position{50, 20},
 		}, Position{50, 0}, true},
+		{"bug", args{
+			Position{-10, 8},
+			Position{3.6463650072002203, 3.6463650072002203},
+			Position{0, 0},
+			Position{250, 250},
+		}, Position{}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
