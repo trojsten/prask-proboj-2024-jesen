@@ -3,7 +3,7 @@ package main
 type Weapon int
 
 const (
-	WeaponNone = iota
+	WeaponNone Weapon = iota
 	WeaponKnife
 	WeaponPistol
 	WeaponTommy

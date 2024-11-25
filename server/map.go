@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"os"
 )
 
@@ -27,5 +28,24 @@ func (g *Game) LoadMap(file string) {
 			B: Position{wallData[2], wallData[3]},
 		}
 		g.Map.Walls = append(g.Map.Walls, &wall)
+	}
+}
+
+func (g *Game) SpawnItems() {
+	for i := 0; i < ItemCount; i++ {
+		weapon := WeaponNone
+		itemType := ItemHealth
+
+		if rand.Intn(2) == 1 {
+			itemType = ItemWeapon
+			weapon = Weapon(rand.Intn(4))
+		}
+
+		item := Item{
+			Position: g.spawnPoint(),
+			Type:     itemType,
+			Weapon:   weapon,
+		}
+		g.Map.Items = append(g.Map.Items, &item)
 	}
 }

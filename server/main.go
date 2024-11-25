@@ -29,6 +29,7 @@ func main() {
 		game.LoadMap(mapName)
 	}
 
+	game.SpawnItems()
 	game.SpawnPlayers(players)
 	game.SendMapToObserver()
 	game.GreetPlayers()

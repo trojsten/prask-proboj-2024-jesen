@@ -16,7 +16,7 @@ type Stats struct{}
 type ItemType int
 
 const (
-	ItemWeapon = iota
+	ItemWeapon ItemType = iota
 	ItemHealth
 )
 

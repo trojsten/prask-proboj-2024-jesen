@@ -13,15 +13,19 @@ type startupMap struct {
 	Walls  []*Wall `json:"walls"`
 }
 
+func (g *Game) spawnPoint() Position {
+	spawnAngle := rand.Float64() * 2 * math.Pi
+	spawnDist := rand.Float64() * g.Map.Radius
+
+	return Position{
+		X: math.Cos(spawnAngle) * spawnDist,
+		Y: math.Sin(spawnAngle) * spawnDist,
+	}
+}
+
 func (g *Game) SpawnPlayers(players []string) {
 	for i, player := range players {
-		spawnAngle := rand.Float64() * 2 * math.Pi
-		spawnDist := rand.Float64() * g.Map.Radius
-
-		spawn := Position{
-			X: math.Cos(spawnAngle) * spawnDist,
-			Y: math.Sin(spawnAngle) * spawnDist,
-		}
+		spawn := g.spawnPoint()
 
 		g.Map.Players = append(g.Map.Players, &Player{
 			Position:       spawn,
