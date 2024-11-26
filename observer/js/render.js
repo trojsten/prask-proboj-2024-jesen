@@ -73,6 +73,7 @@ class Renderer {
 
         this.canvas.add(this.mapLayer)
         this.canvas.add(this.scoreboardLayer)
+        this.howlers = {}
     }
 
     /** @type {Player[]} players */
@@ -263,6 +264,14 @@ class Renderer {
         this.renderItems(frame.items)
         this.renderScoreboard(frame.players)
         this.renderShootings(frame.shootings)
+        for (const yap of frame.yaps) {
+
+            if (yap in this.howlers) continue;
+            this.howlers[yap] = new Howl({
+                src: [`yaps/${yap}.mp3`]
+            });
+        }
+        this.playYap(frame.yaps)
 
         let xPositions = frame.players.filter(p => p.health > 0).map(p => p.x).sort()
         let yPositions = frame.players.filter(p => p.health > 0).map(p => p.y).sort()
@@ -282,4 +291,14 @@ class Renderer {
             scaleY: s,
         }).play()
     }
+
+        playYap(yaps) {
+            for (const yap of yaps) {
+                const howler = this.howlers[yap];
+                if (howler.playing()) {
+                    howler.stop();
+                }
+                howler.play();
+            }
+        }
 }
