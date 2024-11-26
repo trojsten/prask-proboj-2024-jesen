@@ -144,6 +144,12 @@ func (g *Game) processTurn(p *Player) error {
 			g.Runner.Log(fmt.Sprintf("rejecting SHOOT from %v: unknown player %v", p.Name, targetPlayerId))
 			return ErrorInvalid
 		}
+
+		if targetPlayerId == p.Id {
+			g.Runner.Log(fmt.Sprintf("rejecting SHOOT from %v: shooting yourself?", p.Name))
+			return ErrorInvalid
+		}
+
 		targetPlayer := g.Map.Players[targetPlayerId]
 
 		err = g.shoot(p, targetPlayer)
