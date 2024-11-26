@@ -12,6 +12,7 @@ type Game struct {
 	Map           *Map
 	Turn          int
 	TurnShootings []Shooting
+	TurnYaps      []string
 }
 
 func main() {
@@ -41,6 +42,7 @@ func main() {
 
 	for game.ShouldContinue() {
 		game.TurnShootings = []Shooting{}
+		game.TurnYaps = []string{}
 		for _, player := range game.Map.Players {
 			game.DoTurn(player)
 		}

@@ -12,6 +12,7 @@ type observerState struct {
 	Items     []*Item            `json:"items"`
 	Players   []*Player          `json:"players"`
 	Shootings []observerShooting `json:"shootings"`
+	Yaps      []string           `json:"yaps"`
 }
 
 type observerShooting struct {
@@ -39,6 +40,7 @@ func (g *Game) SendStateToObserver() {
 		Items:     g.Map.Items,
 		Players:   g.Map.Players,
 		Shootings: []observerShooting{},
+		Yaps:      g.TurnYaps,
 	}
 
 	for _, shooting := range g.TurnShootings {

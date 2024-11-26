@@ -197,6 +197,17 @@ func (g *Game) processTurn(p *Player) error {
 			p.Health = min(p.Health+HealthItemRegeneration, PlayerFullHealth)
 			g.removeItem(item)
 		}
+	case "YAP":
+		clip, err := strconv.Atoi(args[0])
+		if err != nil {
+			g.Runner.Log(fmt.Sprintf("rejecting YAP from %v: %v", p.Name, err))
+			return ErrorInvalid
+		}
+		if 0 > clip || clip > 1 {
+			g.Runner.Log(fmt.Sprintf("rejecting YAP from %v: invalid clip", p.Name))
+			return ErrorInvalid
+		}
+		g.TurnYaps = append(g.TurnYaps, fmt.Sprintf("%s_%d", p.Name, clip))
 	}
 
 	return nil

@@ -216,7 +216,23 @@ class ReloadTurn(Turn):
         print(".")
 
     def __str__(self):
-        return "TACTICAL REALOAD"
+        return "TACTICAL RELOAD"
+
+class YapTurn(Turn):
+    """
+    YapTurn je trieda, ktorá preprezentuje ťah povedania hlášky.
+
+    * yap_clip - id hlášky, ktorú mafián povie..
+    """
+    def __init__(self, yap_clip: int):
+        self.clip = yap_clip
+
+    def print(self):
+        print(f"YAP {self.clip}")
+        print(".")
+
+    def __str__(self):
+        return f"YAPPING {self.clip}"
 
 
 class Game:
