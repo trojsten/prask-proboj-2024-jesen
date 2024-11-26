@@ -2,6 +2,7 @@ import json
 import math
 import sys
 from abc import abstractstaticmethod
+from typing import List
 
 from weapons import weaponTypes, itemTypes
 
@@ -231,8 +232,8 @@ class Game:
     def __init__(self):
         self.map = Map.read_map()
         self.player: Player
-        self.enemy_players: list[EnemyPlayer]
-        self.items: list[Item]
+        self.enemy_players: List[EnemyPlayer]
+        self.items: List[Item]
 
     @staticmethod
     def log(*args):
