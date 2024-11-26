@@ -3,4 +3,5 @@ c.out
 __pycache__/
 /game/
 runner
-srv
+/server_*
+/template.zip
