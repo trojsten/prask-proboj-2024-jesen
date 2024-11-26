@@ -9,11 +9,14 @@
     "second": {
       "command": "./player/lepsi_player.py",
       "language": "py"
+    },
+    "windows": {
+      "command": "C:/absolutna/cesta/ku/python.exe ../players/python/player.py",
+      "language": "py"
     }
   },
   "timeout": {
-    "py": 1,
-    "cpp":1
+    "py": 1
   },
   "disable_gzip": true
 }

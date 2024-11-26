@@ -94,5 +94,15 @@ ktorá vám doplní 75 života.
 Za zabiie protivníka získavate 10 bodov.
 Za akékoľvek poškodenie protivníka získavate 1 bod.
 
-# Návod na odovzdávanie
-todoo
+# What's in the box?
+
+  - `observer` - prehrávač hier (`index.html` otvor v prehliadači)
+  - `server_linux`, `server_mac`, `server_windows.exe` - program s logikou hry
+  - `maps` - mapy
+  - `runner_linux`, `runner_mac`, `runner_windows.exe` - program na spúšťanie hier
+  - `player` - kód bota
+  - `config.json`, `games.json` - konfiguračné súbory
+
+## Čo odovzdávať?
+
+Stačí zazipovať súbory `player.py`, `proboj.py` a `weapons.py` **(nie priečinok!)**, prípadne ďalšie, ak si si nejaké navyše vytvoril.
