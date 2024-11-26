@@ -66,6 +66,10 @@ Na zemi je kopa rôznych predmentov. Mafián ich môže tieto predmenty zo zeme 
 
 Váš mafián môže zahodiť zbraň z ruky.    
 
+### Yapping
+Váš mafián môže počas boja vydávať zvuky. 
+POZOR! Ráta sa to ako samostatný ťah. 
+
 ## Herné objekty
 
 ### Mafián
