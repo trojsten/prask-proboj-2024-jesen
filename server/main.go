@@ -1,6 +1,9 @@
 package main
 
-import "github.com/trojsten/ksp-proboj/client"
+import (
+	"fmt"
+	"github.com/trojsten/ksp-proboj/client"
+)
 
 type Shooting struct {
 	Attacker *Player
@@ -43,6 +46,7 @@ func main() {
 	for game.ShouldContinue() {
 		game.TurnShootings = []Shooting{}
 		game.TurnYaps = []string{}
+		game.Runner.Log(fmt.Sprintf("TURN %d", game.Turn))
 		for _, player := range game.Map.Players {
 			game.DoTurn(player)
 		}

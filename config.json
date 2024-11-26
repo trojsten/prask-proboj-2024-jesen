@@ -1,5 +1,5 @@
 {
-  "server": "./srv",
+  "server": "./server_linux",
   "game_root": ".",
   "players": {
     "first": {
@@ -7,11 +7,11 @@
       "language": "py"
     },
     "second": {
-      "command": "./player/lepsi_player.py",
+      "command": "./player/player.py",
       "language": "py"
     },
     "windows": {
-      "command": "C:/absolutna/cesta/ku/python.exe ../players/python/player.py",
+      "command": "C:/absolutna/cesta/ku/python.exe ../player/python/player.py",
       "language": "py"
     }
   },
