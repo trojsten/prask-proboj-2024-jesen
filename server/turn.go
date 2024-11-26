@@ -29,6 +29,10 @@ func loadPosition(data []string) (Position, error) {
 
 func (g *Game) whereToMove(p *Player, target Position) Position {
 	movementVector := p.Position.VectorTo(target)
+	if p.Position == target {
+		return target
+	}
+
 	if movementVector.Length() > PlayerMovementRange {
 		movementVector = movementVector.Normalize().Mul(PlayerMovementRange)
 	}
