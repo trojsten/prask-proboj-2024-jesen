@@ -296,7 +296,7 @@ class Renderer {
             for (const yap of yaps) {
                 const howler = this.howlers[yap];
                 if (howler.playing()) {
-                    howler.stop();
+                    continue
                 }
                 howler.play();
             }
