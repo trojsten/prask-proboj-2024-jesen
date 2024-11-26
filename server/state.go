@@ -49,6 +49,10 @@ func (g *Game) stateForPlayer(p *Player) string {
 			continue
 		}
 
+		if otherPlayer.Health <= 0 {
+			continue
+		}
+
 		if wall, _ := g.closestWallInTheWay(p, otherPlayer.Position); wall == nil {
 			playerState.VisiblePlayers = append(playerState.VisiblePlayers, statePlayer{
 				Position: otherPlayer.Position,
