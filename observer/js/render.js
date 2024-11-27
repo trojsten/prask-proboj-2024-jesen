@@ -62,6 +62,7 @@ class Renderer {
             height: height,
         })
         this.playerLayers = {}
+        this.playerTweens = {}
         this.mapLayer = new Konva.Layer()
         this.scoreboardLayer = new Konva.Layer()
         this.scoreboardLayer.x(width - 205)
@@ -219,12 +220,17 @@ class Renderer {
 
         layer._healthbar.width(30 * (player.health / 100))
 
-        new Konva.Tween({
+        if (this.playerTweens.hasOwnProperty(player.name)) {
+            this.playerTweens[player.name].finish()
+            this.playerTweens[player.name].destroy()
+        }
+        this.playerTweens[player.name] = new Konva.Tween({
             node: layer,
             duration: game.frameSpeed / 1000,
             x: player.x,
             y: player.y,
-        }).play()
+        })
+        this.playerTweens[player.name].play()
     }
 
     /** @type {MapItem[]} items */
@@ -267,7 +273,7 @@ class Renderer {
         for (const yap of frame.yaps) {
             if (yap in this.howlers) continue;
             this.howlers[yap] = new Howl({
-                src: [`yaps/${yap}.mp3`]
+                src: [`yaps/${yap}.mp3?v=2`]
             });
         }
         this.playYap(frame.yaps)

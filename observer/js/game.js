@@ -54,7 +54,6 @@ class Game {
             .then(blob => blob.arrayBuffer())
             .then(data => {
                 this.loadGzip(data)
-                this.startPlayback()
             })
     }
 
@@ -88,7 +87,7 @@ class Game {
             setTimeout(() => this.play(), this.frameSpeed)
         } else {
             if (urlParams.get("autoplay") === "1") {
-                setTimeout(() => {window.location = "/autoplay/"}, 2500)
+                setTimeout(() => {window.location = urlParams.get("back")}, 2500)
             }
             this.stopPlayback()
         }
