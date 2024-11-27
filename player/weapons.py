@@ -18,10 +18,10 @@ class WeaponKnife:
     stats = WeaponStats(10, 34, 0, 1)
 @dataclass
 class WeaponPistol:
-    stats = WeaponStats(5 * 5, 5, 2, 10)
+    stats = WeaponStats(20 * 5, 5, 2, 10)
 @dataclass
 class WeaponTommy:
-    stats = WeaponStats(5 * 10, 8, 4, 25)
+    stats = WeaponStats(20 * 10, 8, 4, 25)
 
 
 weaponTypes = {

@@ -25,6 +25,8 @@ func TestGame_closestWallInTheWay(t *testing.T) {
 		intersection Position
 	}{
 		{"no walls", []*Wall{}, Position{0, 0}, Position{100, 0}, -1, Position{}},
+		{"no walls", []*Wall{}, Position{-54, 12}, Position{-54, 12}, -1, Position{}},
+		{"single walls", []*Wall{{Position{50, -10}, Position{50, 10}}}, Position{-54, 12}, Position{-54, 12}, -1, Position{}},
 		{"single wall", []*Wall{{Position{50, -10}, Position{50, 10}}}, Position{0, 0}, Position{100, 0}, 0, Position{50, 0}},
 		{"two walls", []*Wall{{Position{100, -10}, Position{100, 10}}, {Position{50, -10}, Position{50, 10}}}, Position{0, 0}, Position{200, 0}, 1, Position{50, 0}},
 	}

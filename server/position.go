@@ -63,6 +63,10 @@ func Intesect(a1, a2, b1, b2 Position) (Position, bool) {
 	// https://stackoverflow.com/a/565282
 	vecA := a1.VectorTo(a2)
 	vecB := b1.VectorTo(b2)
+
+	if vecA.Length() == 0 {
+		return Position{}, false
+	}
 	vecX := a1.VectorTo(b1)
 
 	// b1 = q, a1 = p
