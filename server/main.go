@@ -53,10 +53,12 @@ func main() {
 			start := time.Now()
 			game.DoTurn(player)
 			end := time.Now()
-			if end.Sub(start) > time.Second*2 {
-				runner.KillPlayer(player.Name)
-				game.Runner.Log(fmt.Sprintf("Killing player %s, turn took too long (%v)", player.Name, end.Sub(start).Seconds()))
-			}
+			//if end.Sub(start) > time.Second*10 {
+			//	runner.KillPlayer(player.Name)
+			//	game.Runner.Log(fmt.Sprintf("Killing player %s, turn took too long (%v)", player.Name, end.Sub(start).Seconds()))
+			//}
+			game.Runner.Log(fmt.Sprintf("PLAYER %s turn took %v ms", player.Name, end.Sub(start).Milliseconds()))
+
 			runner.PausePlayer(player.Name)
 		}
 		game.Tick()
