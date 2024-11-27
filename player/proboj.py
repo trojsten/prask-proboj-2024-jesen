@@ -78,7 +78,7 @@ class Player:
         self.xy = XY(data.get('x'), data.get('y'))
         self.health = data.get('health')
         self.weapon = weaponTypes[data.get('weapon')]
-        self.laoded_ammo = data.get('laoded_ammo')
+        self.loaded_ammo = data.get('loaded_ammo')
         self.reload_cooldown = data.get('reload_cooldown')
 
     @classmethod
