@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/trojsten/ksp-proboj/client"
+	"time"
 )
 
 type Shooting struct {
@@ -48,7 +49,12 @@ func main() {
 		game.TurnYaps = []string{}
 		game.Runner.Log(fmt.Sprintf("TURN %d", game.Turn))
 		for _, player := range game.Map.Players {
+			start := time.Now()
 			game.DoTurn(player)
+			end := time.Now()
+			if end.Sub(start) > time.Second {
+				runner.KillPlayer(player.Name)
+			}
 		}
 		game.Tick()
 		game.SendStateToObserver()
