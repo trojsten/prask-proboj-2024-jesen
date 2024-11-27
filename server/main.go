@@ -49,6 +49,7 @@ func main() {
 		game.TurnYaps = []string{}
 		game.Runner.Log(fmt.Sprintf("TURN %d", game.Turn))
 		for _, player := range game.Map.Players {
+			runner.ResumePlayer(player.Name)
 			start := time.Now()
 			game.DoTurn(player)
 			end := time.Now()
@@ -56,6 +57,7 @@ func main() {
 				runner.KillPlayer(player.Name)
 				game.Runner.Log(fmt.Sprintf("Killing player %s, turn took too long (%v)", player.Name, end.Sub(start).Seconds()))
 			}
+			runner.PausePlayer(player.Name)
 		}
 		game.Tick()
 		game.SendStateToObserver()
