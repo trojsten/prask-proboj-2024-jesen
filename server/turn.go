@@ -58,7 +58,7 @@ func (g *Game) shoot(shooter *Player, target *Player) error {
 	}
 
 	weapon := WeaponStatsMap[shooter.Weapon]
-	dist := shooter.Position.SquaredDistance(target.Position)
+	dist := shooter.Position.Distance(target.Position)
 	if dist > weapon.Range {
 		return fmt.Errorf("target is out of range")
 	}
