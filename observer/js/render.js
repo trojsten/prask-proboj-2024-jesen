@@ -265,7 +265,6 @@ class Renderer {
         this.renderScoreboard(frame.players)
         this.renderShootings(frame.shootings)
         for (const yap of frame.yaps) {
-
             if (yap in this.howlers) continue;
             this.howlers[yap] = new Howl({
                 src: [`yaps/${yap}.mp3`]
@@ -273,11 +272,11 @@ class Renderer {
         }
         this.playYap(frame.yaps)
 
-        let xPositions = frame.players.filter(p => p.health > 0).map(p => p.x).sort()
-        let yPositions = frame.players.filter(p => p.health > 0).map(p => p.y).sort()
+        let xPositions = frame.players.filter(p => p.health > 0).map(p => p.x).sort((a, b) => a - b)
+        let yPositions = frame.players.filter(p => p.health > 0).map(p => p.y).sort((a, b) => a - b)
 
-        let width = Math.max(Math.abs(xPositions[xPositions.length - 1] - xPositions[0] + 150), 500)
-        let height = Math.max(Math.abs(yPositions[yPositions.length - 1] - yPositions[0] + 150), 500)
+        let width = Math.max(Math.abs(xPositions[xPositions.length - 1] - xPositions[0]) + 150, 500)
+        let height = Math.max(Math.abs(yPositions[yPositions.length - 1] - yPositions[0]) + 150, 500)
         let centerX = (xPositions[xPositions.length - 1] + xPositions[0]) / 2
         let centerY = (yPositions[yPositions.length - 1] + yPositions[0]) / 2
 
