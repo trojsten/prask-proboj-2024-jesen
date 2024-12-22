@@ -213,7 +213,7 @@ class Renderer {
                 })
                 group.add(cap)
             }
-            capImg.src = '../observer/christmas-cap.png'
+            capImg.src = 'christmas-cap.png'
 
 
 
