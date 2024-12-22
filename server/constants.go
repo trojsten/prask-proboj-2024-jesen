@@ -10,4 +10,5 @@ const WorldBorderDamage = 10
 const WorldBorderSpeed = 0.998
 const ScoreHit = 1
 const ScoreKill = 10
+const ScoreLastMan = 15
 const ItemCount = 100

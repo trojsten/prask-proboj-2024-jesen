@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/trojsten/ksp-proboj/client"
 	"time"
+
+	"github.com/trojsten/ksp-proboj/client"
 )
 
 type Shooting struct {
@@ -64,6 +65,13 @@ func main() {
 		game.Tick()
 		game.SendStateToObserver()
 		game.Turn++
+	}
+
+	for _, player := range game.Map.Players {
+		if player.Health > 0 {
+			player.Score += ScoreLastMan
+			break
+		}
 	}
 
 	game.Runner.Log("that's all folks!")
