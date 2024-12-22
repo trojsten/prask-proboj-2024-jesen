@@ -171,7 +171,7 @@ class Renderer {
 
             let name = new Konva.Text({
                 x: 0,
-                y: -16,
+                y: -26,
                 text: player.name,
                 fontSize: 10,
                 fontStyle: "bold",
@@ -201,6 +201,21 @@ class Renderer {
             group.add(healthbar_box)
             group.add(circle)
             group.add(name)
+
+            let capImg = new Image();
+            capImg.onload = function () {
+                var cap = new Konva.Image({
+                    x: -5,
+                    y: -15,
+                    image: capImg,
+                    width: 15,
+                    height: 12
+                })
+                group.add(cap)
+            }
+            capImg.src = '../observer/christmas-cap.png'
+
+
 
             this.mapLayer.add(group)
             this.playerLayers[player.id] = group
