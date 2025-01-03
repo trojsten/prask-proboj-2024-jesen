@@ -50,7 +50,10 @@ func main() {
 		game.TurnYaps = []string{}
 		game.Runner.Log(fmt.Sprintf("TURN %d", game.Turn))
 		for _, player := range game.Map.Players {
-			runner.ResumePlayer(player.Name)
+			// Players are not paused at start, let's avoid unnecessary error messages in logs.
+			if game.Turn != 0 {
+				runner.ResumePlayer(player.Name)
+			}
 			start := time.Now()
 			game.DoTurn(player)
 			end := time.Now()
