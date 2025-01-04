@@ -42,8 +42,17 @@ func (g *Game) whereToMove(p *Player, target Position) Position {
 	wall, obstaclePosition := g.closestWallInTheWay(p, target)
 	if wall != nil {
 		angle := movementVector.Angle(wall.Vector())
-		forcefieldVector := movementVector.Normalize().Mul(-1).Mul(PlayerRadius / math.Sin(angle))
-		target = obstaclePosition.Add(forcefieldVector)
+		sinAngle := math.Sin(angle)
+		// we dont want to divide by zero
+		if sinAngle < 0.0001 {
+			playerObstacleDistance := p.Position.Distance(obstaclePosition)
+			// do not move player closer to the obstacle than PlayerRadius
+			newMovementLength := playerObstacleDistance - PlayerRadius
+			target = p.Position.Add(movementVector.Normalize().Mul(newMovementLength))
+		} else {
+			forcefieldVector := movementVector.Normalize().Mul(-1).Mul(PlayerRadius / math.Sin(angle))
+			target = obstaclePosition.Add(forcefieldVector)
+		}
 	}
 
 	return target
