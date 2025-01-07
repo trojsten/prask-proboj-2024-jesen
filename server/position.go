@@ -48,7 +48,14 @@ func (v Vector) DotProduct(v2 Vector) float64 {
 }
 
 func (v Vector) Angle(target Vector) float64 {
-	return math.Acos(v.DotProduct(target) / (v.Length() * target.Length()))
+	intermediate := v.DotProduct(target) / (v.Length() * target.Length())
+	// because of floating point errors
+	if intermediate > 1 {
+		intermediate = 1
+	} else if intermediate < -1 {
+		intermediate = -1
+	}
+	return math.Acos(intermediate)
 }
 
 func (v Vector) IsZero() bool {
